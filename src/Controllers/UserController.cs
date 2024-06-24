@@ -20,9 +20,9 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpGet("/user/list")]
-        public IActionResult Home()
+        public IEnumerable<User> Home()
         {
-            return View(_userRepository.FindAll());
+            return _userRepository.FindAll();
         }
 
         [HttpGet("/user/add")]
