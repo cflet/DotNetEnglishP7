@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Compact;
 
 namespace Dot.Net.WebApi
 {
@@ -15,7 +17,10 @@ namespace Dot.Net.WebApi
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
             .Enrich.FromLogContext()
+            .WriteTo.File(new RenderedCompactJsonFormatter(), "logs/log.ndjson")
+            .WriteTo.File("logs/log2-.txt", rollingInterval: RollingInterval.Day)
             .WriteTo.Console()
             .CreateLogger();
 

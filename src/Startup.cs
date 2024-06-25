@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using Swashbuckle.Swagger;
 using WebApi.Data;
 using WebApi.Repositories;
@@ -56,6 +57,8 @@ namespace Dot.Net.WebApi
             app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
+
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 

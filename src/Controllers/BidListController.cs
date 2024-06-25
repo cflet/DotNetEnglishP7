@@ -16,18 +16,15 @@ namespace Dot.Net.WebApi.Controllers
     public class BidListController : Controller
     {
         private IBidListRepository _bidlistRepository;
-        private ILogger<BidListController> _logger;
 
-        public BidListController(IBidListRepository bidListRepository, ILogger<BidListController> logger)
+        public BidListController(IBidListRepository bidListRepository)
         {
             _bidlistRepository = bidListRepository;
-            _logger = logger;
         }
          
         [HttpGet("/bidList/list")]
         public IActionResult GetAll()
         {
-            _logger.LogInformation("$$$*****Log Getting All BidList******$$$");
             return Ok(_bidlistRepository.FindAll());
         }
 
