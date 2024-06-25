@@ -37,8 +37,7 @@ namespace WebApi.Data
                     AskQuantity = 4.6,
                     Bid = 1.2,
                     Ask = 3.4,
-                    Benchmark = "What is this",
-                    BidListDate = new DateTime(2024, 01, 15)
+                    Benchmark = "What is this"
                 }
 
                 );
