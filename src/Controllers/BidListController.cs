@@ -7,7 +7,6 @@ using Dot.Net.WebApi.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using WebApi.Repositories;
 
 namespace Dot.Net.WebApi.Controllers

@@ -23,24 +23,19 @@ namespace WebApi.Data
                 context.Database.Migrate();
             }
 
-            if (context.BidLists.Any())
+
+            if (context.CurvePoints.Any())
             {
                 return;
             }
 
-            context.BidLists.AddRange(
-                new BidList
+            context.CurvePoints.AddRange(
+                new CurvePoint
                 {
-                    Account = "12345",
-                    Type = "Not sure",
-                    BidQuantity = 5.5,
-                    AskQuantity = 4.6,
-                    Bid = 1.2,
-                    Ask = 3.4,
-                    Benchmark = "What is this"
-                }
+                    CurveId = 3456
+                });
 
-                );
+
             context.SaveChanges();
         }
     }

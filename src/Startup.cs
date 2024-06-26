@@ -34,6 +34,7 @@ namespace Dot.Net.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IBidListRepository, BidListRepository>();
+            services.AddScoped<ICurvePointRepository, CurvePointRepository>();
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddControllersWithViews();
@@ -69,7 +70,7 @@ namespace Dot.Net.WebApi
                 endpoints.MapControllers();
             });
 
-            SeedData.EnsurePopulated(app);
+            //SeedData.EnsurePopulated(app);
         }
     }
 }
