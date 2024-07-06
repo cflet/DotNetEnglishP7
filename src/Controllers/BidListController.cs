@@ -28,14 +28,14 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpGet("/bidList/list/{id}")]
-        public IActionResult GetABid(int id)
+        public IActionResult GetBid(int id)
         {
             return Ok(_bidlistRepository.FindByBidListId(id));
         }
 
             [HttpPost("/bidList/add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult AddBidList([FromBody] BidList bidList)
+        public IActionResult AddBid([FromBody] BidList bidList)
         {
             // TODO: check data valid and save to db, after saving return bid list
             if (ModelState.IsValid)
