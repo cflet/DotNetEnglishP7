@@ -24,15 +24,17 @@ namespace WebApi.Data
             }
 
 
-            if (context.CurvePoints.Any())
+            if (context.Users.Any())
             {
                 return;
             }
 
-            context.CurvePoints.AddRange(
-                new CurvePoint
+            context.Users.AddRange(
+                new User
                 {
-                    CurveId = 3456
+                    UserName = "Lopa",
+                    Password = "Orange1234",
+                    FullName = "L Frost"
                 });
 
 

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Web.Providers.Entities;
 using Dot.Net.WebApi.Data;
+using Dot.Net.WebApi.Domain;
 using Dot.Net.WebApi.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +38,7 @@ namespace Dot.Net.WebApi
         {
             services.AddScoped<IBidListRepository, BidListRepository>();
             services.AddScoped<ICurvePointRepository, CurvePointRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddControllersWithViews();
@@ -42,8 +46,12 @@ namespace Dot.Net.WebApi
             services.AddDbContext<LocalDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("LocalDbContext")));
 
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<LocalDbContext>();
-        }
+
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+        //.AddEntityFrameworkStores<LocalDbContext>()
+        //.AddDefaultTokenProviders();
+
+        }  
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,10 +10,48 @@
     <Compile Remove="Controllers\RatingController.cs" />
     <Compile Remove="Controllers\RuleNameController.cs" />
     <Compile Remove="Controllers\TradeController.cs" />
-    <Compile Remove="Controllers\UserController.cs" />
+    <Compile Remove="Migrations\20240526220957_UserAndBidList.cs" />
+    <Compile Remove="Migrations\20240526220957_UserAndBidList.Designer.cs" />
+    <Compile Remove="Migrations\20240624235643_BidList2.cs" />
+    <Compile Remove="Migrations\20240624235643_BidList2.Designer.cs" />
+    <Compile Remove="Migrations\20240626010221_Curve.cs" />
+    <Compile Remove="Migrations\20240626010221_Curve.Designer.cs" />
+    <Compile Remove="Migrations\20240713035348_AppUser.cs" />
+    <Compile Remove="Migrations\20240713035348_AppUser.Designer.cs" />
+    <Compile Remove="Migrations\20240713042836_AppUser2.cs" />
+    <Compile Remove="Migrations\20240713042836_AppUser2.Designer.cs" />
+    <Compile Remove="Migrations\20240713061053_AppUser3.cs" />
+    <Compile Remove="Migrations\20240713061053_AppUser3.Designer.cs" />
+    <Compile Remove="Migrations\20240713061649_AppUser4.cs" />
+    <Compile Remove="Migrations\20240713061649_AppUser4.Designer.cs" />
+    <Compile Remove="Migrations\20240713062700_AppUser5.cs" />
+    <Compile Remove="Migrations\20240713062700_AppUser5.Designer.cs" />
+    <Compile Remove="Migrations\20240713063043_AppUser.cs" />
+    <Compile Remove="Migrations\20240713063043_AppUser.Designer.cs" />
+    <Compile Remove="Migrations\20240713065540_AppUsera.cs" />
+    <Compile Remove="Migrations\20240713065540_AppUsera.Designer.cs" />
+    <Compile Remove="Migrations\20240713070728_Initial.cs" />
+    <Compile Remove="Migrations\20240713070728_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20240714184330_Initial.cs" />
+    <Compile Remove="Migrations\20240714184330_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20240714185659_Initial2.cs" />
+    <Compile Remove="Migrations\20240714185659_Initial2.Designer.cs" />
+    <Compile Remove="Migrations\20240714190639_Initial3.cs" />
+    <Compile Remove="Migrations\20240714190639_Initial3.Designer.cs" />
+    <Compile Remove="Migrations\20240714192428_Initial.cs" />
+    <Compile Remove="Migrations\20240714192428_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20240714193024_Initial2.cs" />
+    <Compile Remove="Migrations\20240714193024_Initial2.Designer.cs" />
+    <Compile Remove="Migrations\20240714193349_Initial.cs" />
+    <Compile Remove="Migrations\20240714193349_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20240714194001_Initial.cs" />
+    <Compile Remove="Migrations\20240714194001_Initial.Designer.cs" />
   </ItemGroup>
    
   <ItemGroup>
+   <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+   <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.4" />
+   <PackageReference Include="Microsoft.AspNet.Providers.Core" Version="2.0.0" />
    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />

@@ -3,10 +3,11 @@ using System.Linq;
 using Dot.Net.WebApi.Domain;
 using System;
 using System.Collections.ObjectModel;
+using WebApi.Repositories;
 
 namespace Dot.Net.WebApi.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         public LocalDbContext DbContext { get; }
 
@@ -28,11 +29,36 @@ namespace Dot.Net.WebApi.Repositories
 
         public void Add(User user)
         {
+            DbContext.Add(user);
+            DbContext.SaveChanges();
         }
 
         public User FindById(int id)
         {
-            return null;
+            return DbContext.Users.Where(user => user.Id == id)
+                                  .FirstOrDefault();
         }
+
+        public bool VerifyUserPassInfo(User user)
+        {
+            //Hash given password
+            string password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+            //Compare with stored password
+            return (password == FindById(user.Id).Password);
+        }
+
+        public void Update(User user)
+        {
+            DbContext.Update(user);
+            DbContext.SaveChanges();
+        }
+
+        public void Delete(User user)
+        {
+            DbContext.Remove(user);
+            DbContext.SaveChanges();
+        }
+
     }
 }
