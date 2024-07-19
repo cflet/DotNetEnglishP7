@@ -4,73 +4,95 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dot.Net.WebApi.Domain;
 using Dot.Net.WebApi.Repositories;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
- 
+using WebApi.Repositories;
+
 namespace Dot.Net.WebApi.Controllers
 {
     [Route("[controller]")]
     public class UserController : Controller
     {
-        private UserRepository _userRepository;
+        private IUserRepository _UserRepository;
+        //public readonly IPasswordHasher<IdentityUser> _passwordHasher;
 
-        public UserController(UserRepository userRepository)
+
+        public UserController(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
+            _UserRepository = userRepository;
         }
+
 
         [HttpGet("/user/list")]
-        public IEnumerable<User> Home()
+        public IActionResult GetAll()
         {
-            return _userRepository.FindAll();
+            return Ok(_UserRepository.FindAll());
         }
 
-        [HttpGet("/user/add")]
+
+        [HttpPost("/user/add")]
         public IActionResult AddUser([FromBody]User user)
         {
-            return View("user/add");
-        }
-
-        [HttpGet("/user/validate")]
-        public IActionResult Validate([FromBody]User user)
-        {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return Redirect("user/add");
+                string password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                user.Password = password;
+
+                _UserRepository.Add(user);
+                return Ok("Success");
             }
-           
-           _userRepository.Add(user);
-           
-            return Redirect("user/list");
+            else
+            {
+                return BadRequest();
+                //add error log
+            }
         }
 
-        [HttpGet("/user/update/{id}")]
-        public IActionResult ShowUpdateForm(int id)
-        {
-            User user = _userRepository.FindById(id);
-            
-            if (user == null)
-                throw new ArgumentException("Invalid user Id:" + id);
-            
-            return View("user/update");
-        }
 
-        [HttpPost("/user/update/{id}")]
-        public IActionResult updateUser(int id, [FromBody] User user)
+        [HttpPut("/user/update")]
+        public IActionResult UpdateUser([FromBody] User user)
         {
-            // TODO: check required fields, if valid call service to update Trade and return Trade list
-            return Redirect("/trade/list");
+            // TODO: check required fields, if valid call service to update Curve and return Curve list
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (_UserRepository.VerifyUserPassInfo(user))
+                    _UserRepository.Update(user);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return BadRequest("Invalid");
+                    //add error log
+                }
+            }
+            return Ok("Success");
         }
 
         [HttpDelete("/user/{id}")]
-        public IActionResult DeleteUser(int id)
+        public IActionResult DeleteUser(int id, string password)
         {
-            User user = _userRepository.FindById(id);
             
-            if (user == null)
-                throw new ArgumentException("Invalid user Id:" + id);
-                        
-            return Redirect("/user/list");
+            User user = _UserRepository.FindById(id);
+            
+            if ((user == null) || (!BCrypt.Net.BCrypt.Verify(password, user.Password)))
+            {
+                return BadRequest("Invalid");
+                //add error log
+            }
+            //else if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
+           // {
+              //  return BadRequest("Invalid");
+                //add error log
+          //  }
+            else
+            {
+                    _UserRepository.Delete(user);
+                    return Ok();
+            }
         }
     }
 }
