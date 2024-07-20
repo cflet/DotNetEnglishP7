@@ -60,12 +60,13 @@ namespace Dot.Net.WebApi.Controllers
             {
                 try
                 {
-                    if (_UserRepository.VerifyUserPassInfo(user))
+                    string password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                    user.Password = password;
                     _UserRepository.Update(user);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    return BadRequest("Invalid");
+                    return BadRequest();
                     //add error log
                 }
             }
@@ -73,25 +74,20 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpDelete("/user/{id}")]
-        public IActionResult DeleteUser(int id, string password)
+        public IActionResult DeleteUser(int id)
         {
             
             User user = _UserRepository.FindById(id);
-            
-            if ((user == null) || (!BCrypt.Net.BCrypt.Verify(password, user.Password)))
+
+            if (user == null)
             {
-                return BadRequest("Invalid");
+                return BadRequest();
                 //add error log
             }
-            //else if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
-           // {
-              //  return BadRequest("Invalid");
-                //add error log
-          //  }
             else
             {
-                    _UserRepository.Delete(user);
-                    return Ok();
+                _UserRepository.Delete(user);
+                return Ok();
             }
         }
     }
