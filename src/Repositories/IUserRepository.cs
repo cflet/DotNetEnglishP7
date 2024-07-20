@@ -12,7 +12,6 @@ namespace WebApi.Repositories
         User[] FindAll();
         void Add(User User);
         User FindById(int id);
-        bool VerifyUserPassInfo(User user);
         void Update(User user);
         void Delete(User user);
     }

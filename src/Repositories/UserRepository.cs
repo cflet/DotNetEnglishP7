@@ -39,15 +39,6 @@ namespace Dot.Net.WebApi.Repositories
                                   .FirstOrDefault();
         }
 
-        public bool VerifyUserPassInfo(User user)
-        {
-            //Hash given password
-            string password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-
-            //Compare with stored password
-            return (password == FindById(user.Id).Password);
-        }
-
         public void Update(User user)
         {
             DbContext.Update(user);
