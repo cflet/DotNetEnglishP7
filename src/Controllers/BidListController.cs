@@ -33,7 +33,7 @@ namespace Dot.Net.WebApi.Controllers
             return Ok(_bidlistRepository.FindByBidListId(id));
         }
 
-            [HttpPost("/bidList/add")]
+        [HttpPost("/bidList/add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult AddBid([FromBody] BidList bidList)
         {
