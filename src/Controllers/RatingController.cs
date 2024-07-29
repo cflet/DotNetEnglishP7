@@ -4,55 +4,89 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dot.Net.WebApi.Controllers.Domain;
 using Dot.Net.WebApi.Domain;
+using Dot.Net.WebApi.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
- 
+using Microsoft.EntityFrameworkCore;
+using WebApi.Repositories;
+
 namespace Dot.Net.WebApi.Controllers
 {
     [Route("[controller]")]
     public class RatingController : Controller
     {
-        // TODO: Inject Rating service
+        private IRatingRepository _ratingRepository;
+
+        public RatingController(IRatingRepository ratingRepository)
+        {
+            _ratingRepository = ratingRepository;
+        }
 
         [HttpGet("/rating/list")]
-        public IActionResult Home()
+        public IActionResult GetAll()
         {
-            // TODO: find all Rating, add to model
-            return View("rating/list");
+            return Ok(_ratingRepository.FindAll());
         }
 
-        [HttpGet("/rating/add")]
-        public IActionResult AddRatingForm([FromBody]Rating rating)
+        [HttpGet("/rating/list/{id}")]
+        public IActionResult GetRating(int id)
         {
-            return View("rating/add");
+            return Ok(_ratingRepository.FindByRatingId(id));
         }
 
-        [HttpGet("/rating/add")]
-        public IActionResult Validate([FromBody]Rating rating)
+        [HttpPost("/rating/add")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddRating([FromBody] Rating rating)
         {
-            // TODO: check data valid and save to db, after saving return Rating list
-            return View("rating/add");
+            // TODO: check data valid and save to db, after saving return rating list
+            if (ModelState.IsValid)
+            {
+                _ratingRepository.Add(rating);
+                return Ok("Success");
+            }
+            else
+            {
+                return BadRequest();
+                //add error log
+            }
         }
 
-        [HttpGet("/rating/update/{id}")]
-        public IActionResult ShowUpdateForm(int id)
-        {
-            // TODO: get Rating by Id and to model then show to the form
-            return View("rating/update");
-        }
 
-        [HttpPost("/rating/update/{id}")]
-        public IActionResult updateRating(int id, [FromBody] Rating rating)
+        [HttpPut("/rating/update")]
+        public IActionResult UpdateRating([FromBody] Rating rating)
         {
-            // TODO: check required fields, if valid call service to update Rating and return Rating list
-            return Redirect("/rating/list");
+            // TODO: check required fields, if valid call service to update Rating and return list Rating
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _ratingRepository.Update(rating);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return BadRequest();
+                    //add error log
+                }
+            }
+            return Ok("Success");
         }
 
         [HttpDelete("/rating/{id}")]
         public IActionResult DeleteRating(int id)
         {
-            // TODO: Find Rating by Id and delete the Rating, return to Rating list
-            return Redirect("/rating/list");
+            //find rating to delete
+            Rating rating = _ratingRepository.FindByRatingId(id);
+
+            if (rating == null)
+            {
+                return BadRequest();
+                //add error log
+            }
+            else
+            {
+                _ratingRepository.Delete(rating);
+                return Ok();
+            }
         }
     }
 }
