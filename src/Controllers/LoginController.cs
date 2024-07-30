@@ -53,7 +53,7 @@ namespace Dot.Net.WebApi.Controllers
             return Redirect("/trade/list");
         }
 
-        [HttpDelete("/trade/{id}")]
+        [HttpDelete("/trade/delete/{id}")]
         public IActionResult DeleteTrade(int id)
         {
             // TODO: Find Trade by Id and delete the Trade, return to Trade list

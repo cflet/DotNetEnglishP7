@@ -37,7 +37,7 @@ namespace Dot.Net.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult AddBid([FromBody] BidList bidList)
         {
-            // TODO: check data valid and save to db, after saving return bid list
+            // TODO: check data valid and save to db
             if (ModelState.IsValid)
             {
                 _bidlistRepository.Add(bidList);
@@ -53,7 +53,7 @@ namespace Dot.Net.WebApi.Controllers
         [HttpPut("/bidList/update")]
         public IActionResult UpdateBid([FromBody] BidList bidList)
         {
-            // TODO: check required fields, if valid call service to update Bid and return list Bid
+            // TODO: check required fields, if valid call service to update Bid
             if (ModelState.IsValid)
             {
                 try
@@ -82,7 +82,7 @@ namespace Dot.Net.WebApi.Controllers
             } else
             {
                 _bidlistRepository.Delete(bidlist);
-                return Ok();
+                return Ok("Success");
             }
         }
     }

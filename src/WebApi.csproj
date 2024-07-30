@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\TradeController.cs" />
     <Compile Remove="Migrations\20240526220957_UserAndBidList.cs" />
     <Compile Remove="Migrations\20240526220957_UserAndBidList.Designer.cs" />
     <Compile Remove="Migrations\20240624235643_BidList2.cs" />

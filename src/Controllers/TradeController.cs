@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dot.Net.WebApi.Domain;
+using Dot.Net.WebApi.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
- 
+using Microsoft.EntityFrameworkCore;
+using WebApi.Repositories;
+
 namespace Dot.Net.WebApi.Controllers
 {
     [Route("[controller]")]
@@ -13,45 +16,78 @@ namespace Dot.Net.WebApi.Controllers
     {
         // TODO: Inject Trade service
 
+        private ITradeRepository _tradeRepository;
+
+        public TradeController(ITradeRepository tradeRepository)
+        {
+            _tradeRepository = tradeRepository;
+        }
+
         [HttpGet("/trade/list")]
-        public IActionResult Home()
+        public IActionResult GetAll()
         {
-            // TODO: find all Trade, add to model
-            return View("trade/list");
+            return Ok(_tradeRepository.FindAll());
         }
 
-        [HttpGet("/trade/add")]
-        public IActionResult AddTrade([FromBody]Trade trade)
+        [HttpGet("/trade/list/{id}")]
+        public IActionResult GetTrade(int id)
         {
-            return View("trade/add");
+            return Ok(_tradeRepository.FindByTradeId(id));
         }
 
-        [HttpGet("/trade/add")]
-        public IActionResult Validate([FromBody]Trade trade)
+        [HttpPost("/trade/add")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddTrade([FromBody] Trade trade)
         {
-            // TODO: check data valid and save to db, after saving return Trade list
-            return View("trade/add");
+            // TODO: check data valid and save to db
+            if (ModelState.IsValid)
+            {
+                _tradeRepository.Add(trade);
+                return Ok("Success");
+            }
+            else
+            {
+                return BadRequest();
+                //add error log
+            }
         }
 
-        [HttpGet("/trade/update/{id}")]
-        public IActionResult ShowUpdateForm(int id)
-        {
-            // TODO: get Trade by Id and to model then show to the form
-            return View("trade/update");
-        }
 
-        [HttpPost("/trade/update/{id}")]
-        public IActionResult updateTrade(int id, [FromBody] Trade trade)
+        [HttpPut("/trade/update")]
+        public IActionResult UpdateTrade([FromBody] Trade trade)
         {
-            // TODO: check required fields, if valid call service to update Trade and return Trade list
-            return Redirect("/trade/list");
+            // TODO: check required fields, if valid call service to update Trade
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _tradeRepository.Update(trade);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return BadRequest();
+                    //add error log
+                }
+            }
+            return Ok("Success");
         }
 
         [HttpDelete("/trade/{id}")]
         public IActionResult DeleteTrade(int id)
         {
-            // TODO: Find Trade by Id and delete the Trade, return to Trade list
-            return Redirect("/trade/list");
+            //find trade to delete
+            Trade trade = _tradeRepository.FindByTradeId(id);
+
+            if (trade == null)
+            {
+                return BadRequest();
+                //add error log
+            }
+            else
+            {
+                _tradeRepository.Delete(trade);
+                return Ok("Success");
+            }
         }
     }
 }
