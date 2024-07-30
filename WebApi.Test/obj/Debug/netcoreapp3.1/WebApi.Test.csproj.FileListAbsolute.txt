@@ -12,6 +12,7 @@ Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\bin\Debug\netcoreapp3.1\Web
 Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\bin\Debug\netcoreapp3.1\WebApi.Test.runtimeconfig.dev.json
 Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\bin\Debug\netcoreapp3.1\WebApi.Test.dll
 Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\bin\Debug\netcoreapp3.1\WebApi.Test.pdb
+Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
 Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\bin\Debug\netcoreapp3.1\Castle.Core.dll
 Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
 Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\bin\Debug\netcoreapp3.1\EntityFramework.dll
@@ -157,4 +158,3 @@ Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\obj\Debug\netcoreapp3.1\Web
 Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\obj\Debug\netcoreapp3.1\WebApi.Test.dll
 Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\obj\Debug\netcoreapp3.1\WebApi.Test.pdb
 Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\obj\Debug\netcoreapp3.1\WebApi.Test.genruntimeconfig.cache
-Y:\OC Projects\P7_Cheron\DotNetEnglishP7\WebApi.Test\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
