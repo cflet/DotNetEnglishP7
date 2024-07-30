@@ -33,8 +33,8 @@ namespace WebApi.Test
 
             //Act
             var result = bidListController.GetAll();
-            var okayResult = result as OkObjectResult;
 
+            var okayResult = result as OkObjectResult;
             var bidCount = ((BidList[])okayResult.Value).Length;
 
             //Assert
@@ -44,27 +44,26 @@ namespace WebApi.Test
 
 
         [Fact]
-        public void GetBid_OneBid()
+        public void GetBidById_OneBid()
         {
             //Arrange
             var bidListRepoMock = new Mock<IBidListRepository>();
 
-            bidListRepoMock.Setup(e => e.FindAll())
-                .Returns(new BidList[]
-                {
-                     new BidList{BidListId = 1, Account = "1234", Type = "Silver"},
-                     new BidList{BidListId = 2, Account = "2345", Type = "Gold"},
-                     new BidList{BidListId = 3, Account = "3456", Type = "Platinum"},
-                     new BidList{BidListId = 4, Account = "4567", Type = "Black"}
-                });
+            bidListRepoMock.Setup(e => e.FindByBidListId(3))
+                .Returns(
+                     new BidList{BidListId = 3, Account = "3456", Type = "Platinum"});
 
             var bidListController = new BidListController(bidListRepoMock.Object);
 
             //Act
-            var result = bidListController.GetBid(1);
+            var result = bidListController.GetBid(3);
+
+            var okayResult = result as OkObjectResult;
+            var bidCount = ((BidList)okayResult.Value);
 
             //Assert
             Assert.IsType<OkObjectResult>(result);
+            Assert.Equal("3456", bidCount.Account);
         }
 
 
