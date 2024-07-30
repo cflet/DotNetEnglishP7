@@ -3,55 +3,89 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dot.Net.WebApi.Domain;
+using Dot.Net.WebApi.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
- 
+using Microsoft.EntityFrameworkCore;
+using WebApi.Repositories;
+
 namespace Dot.Net.WebApi.Controllers
 {
     [Route("[controller]")]
     public class RuleNameController : Controller
     {
-        // TODO: Inject RuleName service
+        private IRuleNameRepository _rulenameRepository;
+
+        public RuleNameController(IRuleNameRepository rulenameRepository)
+        {
+            _rulenameRepository = rulenameRepository;
+        }
 
         [HttpGet("/ruleName/list")]
-        public IActionResult Home()
+        public IActionResult GetAll()
         {
-            // TODO: find all RuleName, add to model
-            return View("ruleName/list");
+            return Ok(_rulenameRepository.FindAll());
         }
 
-        [HttpGet("/ruleName/add")]
-        public IActionResult AddRuleName([FromBody]RuleName trade)
+        [HttpGet("/ruleName/list/{id}")]
+        public IActionResult GetRuleName(int id)
         {
-            return View("ruleName/add");
+            return Ok(_rulenameRepository.FindByRuleNameId(id));
         }
 
-        [HttpGet("/ruleName/add")]
-        public IActionResult Validate([FromBody]RuleName trade)
+        [HttpPost("/ruleName/add")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddRuleName([FromBody] RuleName ruleName)
         {
-            // TODO: check data valid and save to db, after saving return RuleName list
-            return View("ruleName/add");
+            // TODO: check data valid and save to db, after saving return rule name
+            if (ModelState.IsValid)
+            {
+                _rulenameRepository.Add(ruleName);
+                return Ok("Success");
+            }
+            else
+            {
+                return BadRequest();
+                //add error log
+            }
         }
 
-        [HttpGet("/ruleName/update/{id}")]
-        public IActionResult ShowUpdateForm(int id)
-        {
-            // TODO: get RuleName by Id and to model then show to the form
-            return View("ruleName/update");
-        }
 
-        [HttpPost("/ruleName/update/{id}")]
-        public IActionResult updateRuleName(int id, [FromBody] RuleName rating)
+        [HttpPut("/ruleName/update")]
+        public IActionResult UpdateRuleName([FromBody] RuleName ruleName)
         {
-            // TODO: check required fields, if valid call service to update RuleName and return RuleName list
-            return Redirect("/ruleName/list");
+            // TODO: check required fields, if valid call service to update RuleName and return 
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _rulenameRepository.Update(ruleName);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return BadRequest();
+                    //add error log
+                }
+            }
+            return Ok("Success");
         }
 
         [HttpDelete("/ruleName/{id}")]
         public IActionResult DeleteRuleName(int id)
         {
-            // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-            return Redirect("/ruleName/list");
+            //find ruleName to delete
+            RuleName ruleName = _rulenameRepository.FindByRuleNameId(id);
+
+            if (ruleName == null)
+            {
+                return BadRequest();
+                //add error log
+            }
+            else
+            {
+                _rulenameRepository.Delete(ruleName);
+                return Ok();
+            }
         }
     }
 }

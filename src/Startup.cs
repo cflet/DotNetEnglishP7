@@ -40,6 +40,7 @@ namespace Dot.Net.WebApi
             services.AddScoped<ICurvePointRepository, CurvePointRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
+            services.AddScoped<IRuleNameRepository, RuleNameRepository>();
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddControllersWithViews();
