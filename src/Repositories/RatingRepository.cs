@@ -5,7 +5,6 @@ using Dot.Net.WebApi.Data;
 using Dot.Net.WebApi.Domain;
 using System.Threading.Tasks;
 using WebApi.Repositories;
-using Dot.Net.WebApi.Controllers.Domain;
 
 namespace Dot.Net.WebApi.Repositories
 {
