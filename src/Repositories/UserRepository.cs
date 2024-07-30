@@ -33,7 +33,7 @@ namespace Dot.Net.WebApi.Repositories
             DbContext.SaveChanges();
         }
 
-        public User FindById(int id)
+        public User FindByUserId(int id)
         {
             return DbContext.Users.Where(user => user.Id == id)
                                   .FirstOrDefault();

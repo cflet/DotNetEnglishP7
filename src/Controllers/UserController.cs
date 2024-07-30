@@ -77,7 +77,7 @@ namespace Dot.Net.WebApi.Controllers
         public IActionResult DeleteUser(int id)
         {
             
-            User user = _UserRepository.FindById(id);
+            User user = _UserRepository.FindByUserId(id);
 
             if (user == null)
             {

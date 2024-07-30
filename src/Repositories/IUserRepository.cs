@@ -11,7 +11,7 @@ namespace WebApi.Repositories
         User FindByUserName(string userName);
         User[] FindAll();
         void Add(User User);
-        User FindById(int id);
+        User FindByUserId(int id);
         void Update(User user);
         void Delete(User user);
     }
