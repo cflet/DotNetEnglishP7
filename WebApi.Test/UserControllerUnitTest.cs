@@ -117,7 +117,7 @@ namespace WebApi.Test
             var result = userController.DeleteUser(2);
 
             //Assert
-            Assert.IsType<OkResult>(result);
+            Assert.IsType<OkObjectResult>(result);
         }
 
 
@@ -138,7 +138,7 @@ namespace WebApi.Test
             var result = userController.DeleteUser(3);
 
             //Assert
-            Assert.IsType<BadRequestResult>(result);
+            Assert.IsType<BadRequestObjectResult>(result);
         }
 
 
