@@ -47,7 +47,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             else
             {
-                return BadRequest();
+                return BadRequest("Invalid");
                 //add error log
             }
         }
@@ -65,7 +65,7 @@ namespace Dot.Net.WebApi.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    return BadRequest();
+                    return BadRequest("Invalid");
                     //add error log
                 }
             }
@@ -80,7 +80,7 @@ namespace Dot.Net.WebApi.Controllers
 
             if (trade == null)
             {
-                return BadRequest();
+                return BadRequest("Invalid");
                 //add error log
             }
             else

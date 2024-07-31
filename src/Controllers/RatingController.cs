@@ -28,7 +28,7 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpGet("/rating/list/{id}")]
-        public IActionResult GetRating(int id)
+        public IActionResult GetARating(int id)
         {
             return Ok(_ratingRepository.FindByRatingId(id));
         }
@@ -45,7 +45,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             else
             {
-                return BadRequest();
+                return BadRequest("Invalid");
                 //add error log
             }
         }
@@ -63,7 +63,7 @@ namespace Dot.Net.WebApi.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    return BadRequest();
+                    return BadRequest("Invalid");
                     //add error log
                 }
             }
@@ -78,13 +78,13 @@ namespace Dot.Net.WebApi.Controllers
 
             if (rating == null)
             {
-                return BadRequest();
+                return BadRequest("Invalid");
                 //add error log
             }
             else
             {
                 _ratingRepository.Delete(rating);
-                return Ok();
+                return Ok("Success");
             }
         }
     }

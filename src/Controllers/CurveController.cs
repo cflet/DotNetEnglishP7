@@ -30,7 +30,7 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpGet("/curvePoint/list/{id}")]
-        public IActionResult GetABid(int id)
+        public IActionResult GetACurvePoint(int id)
         {
             return Ok(_curvePointRepository.FindByCurvePointId(id));
         }
@@ -38,7 +38,7 @@ namespace Dot.Net.WebApi.Controllers
         [HttpPost("/curvePoint/add")]
         public IActionResult AddCurvePoint([FromBody]CurvePoint curvePoint)
         {
-            // TODO: check data valid and save to db, after saving return bid list
+            // TODO: check data valid and save to db, after saving return "success"
             if (ModelState.IsValid)
             {
                 _curvePointRepository.Add(curvePoint);
@@ -46,7 +46,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             else
             {
-                return BadRequest("invalid model state");
+                return BadRequest("Invalid");
                 //add error log
             }
         }
@@ -72,7 +72,7 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpDelete("/curvepoint/{id}")]
-        public IActionResult DeleteBid(int id)
+        public IActionResult DeleteCurvePoint(int id)
         {
             // TODO: Find Curve by Id and delete the Curve, return to Curve list
 
@@ -86,7 +86,7 @@ namespace Dot.Net.WebApi.Controllers
             else
             {
                 _curvePointRepository.Delete(curvepoint);
-                return Ok();
+                return Ok("Success");
             }
         }
     }
