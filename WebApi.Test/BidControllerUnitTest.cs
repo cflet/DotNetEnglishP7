@@ -118,7 +118,7 @@ namespace WebApi.Test
             var result = bidListController.DeleteBid(2);
 
             //Assert
-            Assert.IsType<OkResult>(result);
+            Assert.IsType<OkObjectResult>(result);
         }
 
 
@@ -139,7 +139,7 @@ namespace WebApi.Test
             var result = bidListController.DeleteBid(3);
 
             //Assert
-            Assert.IsType<BadRequestResult>(result);
+            Assert.IsType<BadRequestObjectResult>(result);
         }
 
 
