@@ -17,8 +17,6 @@ namespace Dot.Net.WebApi.Controllers
     public class UserController : Controller
     {
         private IUserRepository _UserRepository;
-        //public readonly IPasswordHasher<IdentityUser> _passwordHasher;
-
 
         public UserController(IUserRepository userRepository)
         {
@@ -47,7 +45,6 @@ namespace Dot.Net.WebApi.Controllers
             else
             {
                 return BadRequest("Invalid");
-                //add error log
             }
         }
 
@@ -63,14 +60,14 @@ namespace Dot.Net.WebApi.Controllers
                     string password = BCrypt.Net.BCrypt.HashPassword(user.Password);
                     user.Password = password;
                     _UserRepository.Update(user);
+                    return Ok("Success");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     return BadRequest("Invalid");
-                    //add error log
                 }
             }
-            return Ok("Success");
+            else return BadRequest("Invalid");
         }
 
         [HttpDelete("/user/{id}")]
@@ -82,7 +79,6 @@ namespace Dot.Net.WebApi.Controllers
             if (user == null)
             {
                 return BadRequest("Invalid");
-                //add error log
             }
             else
             {
@@ -90,5 +86,25 @@ namespace Dot.Net.WebApi.Controllers
                 return Ok("Success");
             }
         }
+
+        [HttpGet("/user/login")]
+        public IActionResult UserLogin(string username, string password)
+        {
+            User user = _UserRepository.FindByUserName(username);
+
+            if (user == null)
+            {
+                return BadRequest("Invalid");
+            }
+            else
+            {
+                if(BCrypt.Net.BCrypt.Verify(password, user.Password))
+                {
+                    return Ok("True");
+                }
+                return BadRequest("Invalid");
+            }
+        }
     }
+
 }
