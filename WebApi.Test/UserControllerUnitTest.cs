@@ -42,7 +42,7 @@ namespace WebApi.Test
 
 
         [Fact]
-        public void GetUserById_OneUser()
+        public void GetByUserId_OneUser()
         {
             //Arrange
             var userRepoMock = new Mock<IUserRepository>();
@@ -55,7 +55,7 @@ namespace WebApi.Test
             var userController = new UserController(userRepoMock.Object);
 
             //Act
-            //var result = UserController.GetUser(3);
+            //var result = UserController.FindByUserId(3);
 
             //var okayResult = result as OkObjectResult;
             //var userCount = ((User)okayResult.Value);
@@ -141,9 +141,49 @@ namespace WebApi.Test
             Assert.IsType<BadRequestObjectResult>(result);
         }
 
+        [Fact]
+        public void UserLogin_ValidUser_ReturnsOk()
+        {
+            //Arrange
+            var userRepoMock = new Mock<IUserRepository>();
+            var password = BCrypt.Net.BCrypt.HashPassword("2345");
 
+            userRepoMock.Setup(e => e.FindByUserName("cheron"))
+                .Returns(
+                     new User { UserName = "cheron", Password = password, FullName = "Gold" }
+                     );
 
+            var userController = new UserController(userRepoMock.Object);
 
+            //Act
+            var result = userController.UserLogin("cheron", "2345");
+
+            //Assert
+            Assert.IsType<OkObjectResult>(result);
+
+        }
+
+        [Fact]
+        public void UserLogin_InvalidUser_ReturnsBad()
+        {
+            //Arrange
+            var userRepoMock = new Mock<IUserRepository>();
+            var password = BCrypt.Net.BCrypt.HashPassword("2345");
+
+            userRepoMock.Setup(e => e.FindByUserName("cheron"))
+                .Returns(
+                     new User { UserName = "cheron", Password = password, FullName = "Gold" }
+                     );
+
+            var userController = new UserController(userRepoMock.Object);
+
+            //Act
+            var result = userController.UserLogin("cheron", "345");
+
+            //Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
 
 
     }
