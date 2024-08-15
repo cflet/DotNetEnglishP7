@@ -24,12 +24,14 @@ namespace Dot.Net.WebApi.Controllers
         [HttpGet("/rating/list")]
         public IActionResult GetAll()
         {
+            //return array of all ratings
             return Ok(_ratingRepository.FindAll());
         }
 
         [HttpGet("/rating/list/{id}")]
         public IActionResult GetARating(int id)
         {
+            //return first found rating matching id
             return Ok(_ratingRepository.FindByRatingId(id));
         }
 
@@ -37,16 +39,16 @@ namespace Dot.Net.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult AddRating([FromBody] Rating rating)
         {
-            // TODO: check data valid and save to db, after saving return rating list
+            // check data valid and save to db, after saving returns "Success"
             if (ModelState.IsValid)
             {
+                //if model is valid add rating and return response
                 _ratingRepository.Add(rating);
                 return Ok("Success");
             }
             else
             {
                 return BadRequest("Invalid");
-                //add error log
             }
         }
 
@@ -54,17 +56,17 @@ namespace Dot.Net.WebApi.Controllers
         [HttpPut("/rating/update")]
         public IActionResult UpdateRating([FromBody] Rating rating)
         {
-            // TODO: check required fields, if valid call service to update Rating and return list Rating
+            // check required fields, if valid call service to update rating
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //if model is valid update rating and return response
                     _ratingRepository.Update(rating);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     return BadRequest("Invalid");
-                    //add error log
                 }
             }
             return Ok("Success");
@@ -73,13 +75,12 @@ namespace Dot.Net.WebApi.Controllers
         [HttpDelete("/rating/{id}")]
         public IActionResult DeleteRating(int id)
         {
-            //find rating to delete
+            //find rating to delete matching id
             Rating rating = _ratingRepository.FindByRatingId(id);
 
             if (rating == null)
             {
                 return BadRequest("Invalid");
-                //add error log
             }
             else
             {

@@ -27,6 +27,7 @@ namespace Dot.Net.WebApi.Controllers
         [HttpGet("/user/list")]
         public IActionResult GetAll()
         {
+            //return array of all users
             return Ok(_UserRepository.FindAll());
         }
 
@@ -34,8 +35,11 @@ namespace Dot.Net.WebApi.Controllers
         [HttpPost("/user/add")]
         public IActionResult AddUser([FromBody]User user)
         {
+            // check data valid and save to db, after saving returns "Success"
             if (ModelState.IsValid)
             {
+                //if model is valid add bid and return response
+                //hash password and update model
                 string password = BCrypt.Net.BCrypt.HashPassword(user.Password);
                 user.Password = password;
 
@@ -52,13 +56,20 @@ namespace Dot.Net.WebApi.Controllers
         [HttpPut("/user/update")]
         public IActionResult UpdateUser([FromBody] User user)
         {
-            // TODO: check required fields, if valid call service to update Curve and return Curve list
-            if (ModelState.IsValid)
+            //find user to update matching id
+            User foundUser = _UserRepository.FindByUserId(user.Id);
+
+            if(!ModelState.IsValid || foundUser == null)
+                return BadRequest("Invalid");
+            else
             {
                 try
                 {
+                    //if model is valid update user and return response
+                    //hash password and update model
                     string password = BCrypt.Net.BCrypt.HashPassword(user.Password);
                     user.Password = password;
+
                     _UserRepository.Update(user);
                     return Ok("Success");
                 }
@@ -67,13 +78,13 @@ namespace Dot.Net.WebApi.Controllers
                     return BadRequest("Invalid");
                 }
             }
-            else return BadRequest("Invalid");
         }
+
 
         [HttpDelete("/user/{id}")]
         public IActionResult DeleteUser(int id)
         {
-            
+            //find user to delete matching id
             User user = _UserRepository.FindByUserId(id);
 
             if (user == null)
@@ -90,6 +101,7 @@ namespace Dot.Net.WebApi.Controllers
         [HttpGet("/user/login")]
         public IActionResult UserLogin(string username, string password)
         {
+            //find user matching userName
             User user = _UserRepository.FindByUserName(username);
 
             if (user == null)
@@ -98,6 +110,7 @@ namespace Dot.Net.WebApi.Controllers
             }
             else
             {
+                //if given password matches saved hashed password return True
                 if(BCrypt.Net.BCrypt.Verify(password, user.Password))
                 {
                     return Ok("True");

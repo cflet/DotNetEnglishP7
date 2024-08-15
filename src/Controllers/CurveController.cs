@@ -26,28 +26,30 @@ namespace Dot.Net.WebApi.Controllers
         [HttpGet("/curvePoint/list")]
         public IActionResult GetAll()
         {
+            //return array of all curvepoints
             return Ok(_curvePointRepository.FindAll());
         }
 
         [HttpGet("/curvePoint/list/{id}")]
         public IActionResult GetACurvePoint(int id)
         {
+            //return first found curvepoint matching id
             return Ok(_curvePointRepository.FindByCurvePointId(id));
         }
 
         [HttpPost("/curvePoint/add")]
         public IActionResult AddCurvePoint([FromBody]CurvePoint curvePoint)
         {
-            // TODO: check data valid and save to db, after saving return "success"
+            // check data valid and save to db, after saving returns "Success"
             if (ModelState.IsValid)
             {
+                //if model is valid add curve and return response
                 _curvePointRepository.Add(curvePoint);
                 return Ok("Success");
             }
             else
             {
                 return BadRequest("Invalid");
-                //add error log
             }
         }
 
@@ -55,17 +57,17 @@ namespace Dot.Net.WebApi.Controllers
         [HttpPut("/curvepoint/update")]
         public IActionResult UpdateCurvePoint([FromBody] CurvePoint curvePoint)
         {
-            // TODO: check required fields, if valid call service to update Curve and return Curve list
+            // check required fields, if valid call service to update Curve
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //if model is valid update curve and return response
                     _curvePointRepository.Update(curvePoint);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     return BadRequest("Invalid");
-                    //add error log
                 }
             }
             return Ok("Success");
@@ -74,14 +76,12 @@ namespace Dot.Net.WebApi.Controllers
         [HttpDelete("/curvepoint/{id}")]
         public IActionResult DeleteCurvePoint(int id)
         {
-            // TODO: Find Curve by Id and delete the Curve, return to Curve list
-
+            //find bid to delete by id
             CurvePoint curvepoint = _curvePointRepository.FindByCurvePointId(id);
 
             if (curvepoint == null)
             {
                 return BadRequest("Invalid");
-                //add error log
             }
             else
             {

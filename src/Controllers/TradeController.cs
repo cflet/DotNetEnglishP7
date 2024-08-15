@@ -14,8 +14,6 @@ namespace Dot.Net.WebApi.Controllers
     [Route("[controller]")]
     public class TradeController : Controller
     {
-        // TODO: Inject Trade service
-
         private ITradeRepository _tradeRepository;
 
         public TradeController(ITradeRepository tradeRepository)
@@ -26,12 +24,14 @@ namespace Dot.Net.WebApi.Controllers
         [HttpGet("/trade/list")]
         public IActionResult GetAll()
         {
+            //return array of all trades
             return Ok(_tradeRepository.FindAll());
         }
 
         [HttpGet("/trade/list/{id}")]
         public IActionResult GetTrade(int id)
         {
+            //return first found trade matching id
             return Ok(_tradeRepository.FindByTradeId(id));
         }
 
@@ -39,16 +39,16 @@ namespace Dot.Net.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult AddTrade([FromBody] Trade trade)
         {
-            // TODO: check data valid and save to db
+            // check data valid and save to db, after saving returns "Success"
             if (ModelState.IsValid)
             {
+                //if model is valid add trade and return response
                 _tradeRepository.Add(trade);
                 return Ok("Success");
             }
             else
             {
                 return BadRequest("Invalid");
-                //add error log
             }
         }
 
@@ -56,17 +56,17 @@ namespace Dot.Net.WebApi.Controllers
         [HttpPut("/trade/update")]
         public IActionResult UpdateTrade([FromBody] Trade trade)
         {
-            // TODO: check required fields, if valid call service to update Trade
+            // check required fields, if valid call service to update trade
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //if model is valid update trade and return response
                     _tradeRepository.Update(trade);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     return BadRequest("Invalid");
-                    //add error log
                 }
             }
             return Ok("Success");
@@ -81,7 +81,6 @@ namespace Dot.Net.WebApi.Controllers
             if (trade == null)
             {
                 return BadRequest("Invalid");
-                //add error log
             }
             else
             {

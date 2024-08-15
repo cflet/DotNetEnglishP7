@@ -24,12 +24,14 @@ namespace Dot.Net.WebApi.Controllers
         [HttpGet("/ruleName/list")]
         public IActionResult GetAll()
         {
+            //return array of all rulenames
             return Ok(_rulenameRepository.FindAll());
         }
 
         [HttpGet("/ruleName/list/{id}")]
         public IActionResult GetRuleName(int id)
         {
+            //return first found rulename matching id
             return Ok(_rulenameRepository.FindByRuleNameId(id));
         }
 
@@ -37,7 +39,7 @@ namespace Dot.Net.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult AddRuleName([FromBody] RuleName ruleName)
         {
-            // TODO: check data valid and save to db, after saving return rule name
+            // check data valid and save to db, after saving returns "Success"
             if (ModelState.IsValid)
             {
                 _rulenameRepository.Add(ruleName);
@@ -46,7 +48,6 @@ namespace Dot.Net.WebApi.Controllers
             else
             {
                 return BadRequest("Invalid");
-                //add error log
             }
         }
 
@@ -54,17 +55,17 @@ namespace Dot.Net.WebApi.Controllers
         [HttpPut("/ruleName/update")]
         public IActionResult UpdateRuleName([FromBody] RuleName ruleName)
         {
-            // TODO: check required fields, if valid call service to update RuleName and return 
+            // check required fields, if valid call service to update rulename 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //if model is valid update rulename and return response
                     _rulenameRepository.Update(ruleName);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     return BadRequest("Invalid");
-                    //add error log
                 }
             }
             return Ok("Success");
@@ -73,13 +74,12 @@ namespace Dot.Net.WebApi.Controllers
         [HttpDelete("/ruleName/{id}")]
         public IActionResult DeleteRuleName(int id)
         {
-            //find ruleName to delete
+            //find rulename to delete matching id
             RuleName ruleName = _rulenameRepository.FindByRuleNameId(id);
 
             if (ruleName == null)
             {
                 return BadRequest("Invalid");
-                //add error log
             }
             else
             {
