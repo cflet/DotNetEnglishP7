@@ -8,7 +8,7 @@ namespace Dot.Net.WebApi.Domain
     {
         // TODO: Map columns in data table RATING with corresponding fields
         [Key]
-        public int RatingId { get; set; }
+        public int Id { get; set; }
 
         public string MoodysRating { get; set; }
         public string SandRating { get; set; }

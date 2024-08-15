@@ -7,7 +7,7 @@ namespace Dot.Net.WebApi.Domain
     public class Trade
     {
         [Key]
-        public int TradeId { get; set; }
+        public int Id { get; set; }
 
         public string Account { get; set; }
         public string Type { get; set; }

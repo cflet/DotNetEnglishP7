@@ -9,6 +9,7 @@ namespace Dot.Net.WebApi.Domain
         [Key]
         public int Id { get; set; }
 
+        [Required]
         public int CurveId { get; set; }
         public DateTime AsOfDate { get; set; }
         public double Term { get; set; }
