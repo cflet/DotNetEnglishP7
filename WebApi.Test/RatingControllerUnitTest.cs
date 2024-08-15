@@ -23,10 +23,10 @@ namespace WebApi.Test
             ratingRepoMock.Setup(e => e.FindAll())
             .Returns(new Rating[]
             { 
-                     new Rating{RatingId = 1, FitchRating = "Awsome"},
-                     new Rating{RatingId = 2, FitchRating = "Good"},
-                     new Rating{RatingId = 3, FitchRating = "Great"},
-                     new Rating{RatingId = 4, FitchRating = "Awsome"}
+                     new Rating{Id = 1, FitchRating = "Awsome"},
+                     new Rating{Id = 2, FitchRating = "Good"},
+                     new Rating{Id = 3, FitchRating = "Great"},
+                     new Rating{Id = 4, FitchRating = "Awsome"}
             });
 
             var ratingController = new RatingController(ratingRepoMock.Object);
@@ -44,14 +44,14 @@ namespace WebApi.Test
 
 
         [Fact]
-        public void GetRatingById_OneRating()
+        public void GetRatingById_Id_ReturnsOne()
         {
             //Arrange
             var ratingRepoMock = new Mock<IRatingRepository>();
 
             ratingRepoMock.Setup(e => e.FindByRatingId(3))
                 .Returns(
-                     new Rating { RatingId = 1, FitchRating = "Awsome" });
+                     new Rating { Id = 1, FitchRating = "Awsome" });
 
             var ratingController = new RatingController(ratingRepoMock.Object);
 
@@ -63,7 +63,7 @@ namespace WebApi.Test
 
             //Assert
             Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(1, ratingCount.RatingId);
+            Assert.Equal(1, ratingCount.Id);
         }
 
 
@@ -77,7 +77,7 @@ namespace WebApi.Test
             var ratingController = new RatingController(ratingRepoMock.Object);
 
             //Act
-            Rating rating = new Rating { RatingId = 1, FitchRating = "Awsome" };
+            Rating rating = new Rating { Id = 1, FitchRating = "Awsome" };
 
             var result = ratingController.AddRating(rating);
 
@@ -94,7 +94,7 @@ namespace WebApi.Test
             var ratingController = new RatingController(ratingRepoMock.Object);
 
             //Act
-            var result = ratingController.UpdateRating(new Rating { RatingId = 1, FitchRating = "Awsome" });
+            var result = ratingController.UpdateRating(new Rating { Id = 1, FitchRating = "Awsome" });
 
             //Assert
             Assert.IsType<OkObjectResult>(result);
@@ -109,7 +109,7 @@ namespace WebApi.Test
 
             ratingRepoMock.Setup(e => e.FindByRatingId(1))
                 .Returns(
-                    new Rating { RatingId = 1, FitchRating = "Awsome" }
+                    new Rating { Id = 1, FitchRating = "Awsome" }
                 );
 
             var ratingController = new RatingController(ratingRepoMock.Object);
@@ -130,7 +130,7 @@ namespace WebApi.Test
 
             ratingRepoMock.Setup(e => e.FindByRatingId(1))
                 .Returns(
-                    new Rating { RatingId = 1, FitchRating = "Awsome" }
+                    new Rating { Id = 1, FitchRating = "Awsome" }
                 );
 
             var ratingController = new RatingController(ratingRepoMock.Object);

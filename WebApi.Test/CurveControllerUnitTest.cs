@@ -44,7 +44,7 @@ namespace WebApi.Test
 
 
         [Fact]
-        public void GetCurvePointById_OneCurvePoint()
+        public void GetCurvePointById_Id_ReturnsOne()
         {
             //Arrange
             var curvePointRepoMock = new Mock<ICurvePointRepository>();

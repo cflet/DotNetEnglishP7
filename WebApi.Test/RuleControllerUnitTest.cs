@@ -44,7 +44,7 @@ namespace WebApi.Test
 
 
         [Fact]
-        public void GetRuleNameById_OneRuleName()
+        public void GetRuleNameById_Id_ReturnsOne()
         {
             //Arrange
             var ruleNameRepoMock = new Mock<IRuleNameRepository>();

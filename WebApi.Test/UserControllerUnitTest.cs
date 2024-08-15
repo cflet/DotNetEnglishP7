@@ -42,32 +42,6 @@ namespace WebApi.Test
 
 
         [Fact]
-        public void GetByUserId_OneUser()
-        {
-            //Arrange
-            var userRepoMock = new Mock<IUserRepository>();
-
-            userRepoMock.Setup(e => e.FindByUserId(3))
-                .Returns(
-                     new User { UserName = "Batman", Password = "2345", FullName = "Gold" }
-                     );
-
-            var userController = new UserController(userRepoMock.Object);
-
-            //Act
-            //var result = UserController.FindByUserId(3);
-
-            //var okayResult = result as OkObjectResult;
-            //var userCount = ((User)okayResult.Value);
-
-            //Assert
-            //Assert.IsType<OkObjectResult>(result);
-            //Assert.Equal("3456", userCount.Account);
-        }
-
-
-
-        [Fact]
         public void AddUser_ValidUser_ReturnsOk()
         {
             //Arrange

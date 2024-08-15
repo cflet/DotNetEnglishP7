@@ -23,10 +23,10 @@ namespace WebApi.Test
             tradeRepoMock.Setup(e => e.FindAll())
             .Returns(new Trade[]
             { 
-                     new Trade{TradeId = 1, Account = "Platinum"},
-                     new Trade{TradeId = 2, Account = "Gold"},
-                     new Trade{TradeId = 3, Account = "Silver"},
-                     new Trade{TradeId = 4, Account = "Black"}
+                     new Trade{Id = 1, Account = "Platinum"},
+                     new Trade{Id = 2, Account = "Gold"},
+                     new Trade{Id = 3, Account = "Silver"},
+                     new Trade{Id = 4, Account = "Black"}
             });
 
             var tradeController = new TradeController(tradeRepoMock.Object);
@@ -44,14 +44,14 @@ namespace WebApi.Test
 
 
         [Fact]
-        public void GetTradeById_OneTrade()
+        public void GetTradeById_Id_ReturnsOne()
         {
             //Arrange
             var tradeRepoMock = new Mock<ITradeRepository>();
 
             tradeRepoMock.Setup(e => e.FindByTradeId(3))
                 .Returns(
-                     new Trade { TradeId = 1, Account = "Platinum" });
+                     new Trade { Id = 1, Account = "Platinum" });
 
             var tradeController = new TradeController(tradeRepoMock.Object);
 
@@ -63,7 +63,7 @@ namespace WebApi.Test
 
             //Assert
             Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(1, tradeCount.TradeId);
+            Assert.Equal(1, tradeCount.Id);
         }
 
 
@@ -77,7 +77,7 @@ namespace WebApi.Test
             var tradeController = new TradeController(tradeRepoMock.Object);
 
             //Act
-            Trade trade = new Trade { TradeId = 1, Account = "Platinum" };
+            Trade trade = new Trade { Id = 1, Account = "Platinum" };
 
             var result = tradeController.AddTrade(trade);
 
@@ -94,7 +94,7 @@ namespace WebApi.Test
             var tradeController = new TradeController(tradeRepoMock.Object);
 
             //Act
-            var result = tradeController.UpdateTrade(new Trade { TradeId = 1, Account = "Platinum" });
+            var result = tradeController.UpdateTrade(new Trade { Id = 1, Account = "Platinum" });
 
             //Assert
             Assert.IsType<OkObjectResult>(result);
@@ -109,7 +109,7 @@ namespace WebApi.Test
 
             tradeRepoMock.Setup(e => e.FindByTradeId(1))
                 .Returns(
-                    new Trade { TradeId = 1, Account = "Platinum" }
+                    new Trade { Id = 1, Account = "Platinum" }
                 );
 
             var tradeController = new TradeController(tradeRepoMock.Object);
@@ -130,7 +130,7 @@ namespace WebApi.Test
 
             tradeRepoMock.Setup(e => e.FindByTradeId(1))
                 .Returns(
-                    new Trade { TradeId = 1, Account = "Platinum" }
+                    new Trade { Id = 1, Account = "Platinum" }
                 );
 
             var tradeController = new TradeController(tradeRepoMock.Object);

@@ -23,10 +23,10 @@ namespace WebApi.Test
             bidListRepoMock.Setup(e => e.FindAll())
             .Returns(new BidList[]
             { 
-                     new BidList{BidListId = 1, Account = "1234", Type = "Silver"},
-                     new BidList{BidListId = 2, Account = "2345", Type = "Gold"},
-                     new BidList{BidListId = 3, Account = "3456", Type = "Platinum"},
-                     new BidList{BidListId = 4, Account = "4567", Type = "Black"}
+                     new BidList{Id = 1, Account = "1234", Type = "Silver"},
+                     new BidList{Id = 2, Account = "2345", Type = "Gold"},
+                     new BidList{Id = 3, Account = "3456", Type = "Platinum"},
+                     new BidList{Id = 4, Account = "4567", Type = "Black"}
             });
 
             var bidListController = new BidListController(bidListRepoMock.Object);
@@ -44,14 +44,14 @@ namespace WebApi.Test
 
 
         [Fact]
-        public void GetBidById_OneBid()
+        public void GetBidById_Id_ReturnsOne()
         {
             //Arrange
             var bidListRepoMock = new Mock<IBidListRepository>();
 
             bidListRepoMock.Setup(e => e.FindByBidListId(3))
                 .Returns(
-                     new BidList{BidListId = 3, Account = "3456", Type = "Platinum"});
+                     new BidList{Id = 3, Account = "3456", Type = "Platinum"});
 
             var bidListController = new BidListController(bidListRepoMock.Object);
 
@@ -77,7 +77,7 @@ namespace WebApi.Test
             var bidListController = new BidListController(bidListRepoMock.Object);
 
             //Act
-            BidList bid = new BidList { BidListId = 4, Account = null, Type = "Black" };
+            BidList bid = new BidList { Id = 4, Account = null, Type = "Black" };
 
             var result = bidListController.AddBid(bid);
 
@@ -94,7 +94,7 @@ namespace WebApi.Test
             var bidListController = new BidListController(bidListRepoMock.Object);
 
             //Act
-            var result = bidListController.UpdateBid(new BidList { BidListId = 4, Account = "4567", Type = "Black" });
+            var result = bidListController.UpdateBid(new BidList { Id = 4, Account = "4567", Type = "Black" });
 
             //Assert
             Assert.IsType<OkObjectResult>(result);
@@ -109,7 +109,7 @@ namespace WebApi.Test
 
             bidListRepoMock.Setup(e => e.FindByBidListId(2))
                 .Returns(
-                    new BidList { BidListId = 2, Account = "2345", Type = "Silver" }
+                    new BidList { Id = 2, Account = "2345", Type = "Silver" }
                 );
 
             var bidListController = new BidListController(bidListRepoMock.Object);
@@ -130,7 +130,7 @@ namespace WebApi.Test
 
             bidListRepoMock.Setup(e => e.FindByBidListId(1))
                 .Returns(
-                    new BidList{BidListId = 2, Account = "2345", Type = "Silver"}
+                    new BidList{Id = 2, Account = "2345", Type = "Silver"}
                 );
 
             var bidListController = new BidListController(bidListRepoMock.Object);
@@ -149,15 +149,3 @@ namespace WebApi.Test
 
     }
 }
-
-
-
-
-//bidListRepoMock.Setup(e => e.FindAll())
-//.Returns(new BidList[]
-//{ 
-//         new BidList{BidListId = 1, Account = "1234", Type = "Silver"},
-//         new BidList{BidListId = 2, Account = "2345", Type = "Gold"},
-//         new BidList{BidListId = 3, Account = "3456", Type = "Platinum"},
-//         new BidList{BidListId = 4, Account = "4567", Type = "Black"}
-//});
