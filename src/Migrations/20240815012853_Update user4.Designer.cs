@@ -4,14 +4,16 @@ using Dot.Net.WebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace WebApi.Migrations
 {
     [DbContext(typeof(LocalDbContext))]
-    partial class LocalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240815012853_Update user4")]
+    partial class Updateuser4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("Dot.Net.WebApi.Domain.BidList", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("BidListId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -84,7 +86,7 @@ namespace WebApi.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("BidListId");
 
                     b.ToTable("BidLists");
                 });
@@ -118,7 +120,7 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("Dot.Net.WebApi.Domain.Rating", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("RatingId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -135,7 +137,7 @@ namespace WebApi.Migrations
                     b.Property<string>("SandRating")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("RatingId");
 
                     b.ToTable("Ratings");
                 });
@@ -173,7 +175,7 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("Dot.Net.WebApi.Domain.Trade", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("TradeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -238,7 +240,7 @@ namespace WebApi.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("TradeId");
 
                     b.ToTable("Trades");
                 });
