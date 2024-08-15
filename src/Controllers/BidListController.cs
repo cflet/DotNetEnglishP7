@@ -37,7 +37,6 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpPost("/bidList/add")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult AddBid([FromBody] BidList bidList)
         {
             // check data valid and save to db, after saving returns "Success"

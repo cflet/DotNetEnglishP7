@@ -36,7 +36,6 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpPost("/trade/add")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult AddTrade([FromBody] Trade trade)
         {
             // check data valid and save to db, after saving returns "Success"
@@ -63,13 +62,14 @@ namespace Dot.Net.WebApi.Controllers
                 {
                     //if model is valid update trade and return response
                     _tradeRepository.Update(trade);
+                    return Ok("Success");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     return BadRequest("Invalid");
                 }
             }
-            return Ok("Success");
+            return BadRequest("Invalid");
         }
 
         [HttpDelete("/trade/{id}")]

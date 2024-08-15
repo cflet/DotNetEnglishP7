@@ -56,20 +56,15 @@ namespace Dot.Net.WebApi.Controllers
         [HttpPut("/user/update")]
         public IActionResult UpdateUser([FromBody] User user)
         {
-            //find user to update matching id
-            User foundUser = _UserRepository.FindByUserId(user.Id);
-
-            if(!ModelState.IsValid || foundUser == null)
-                return BadRequest("Invalid");
-            else
+            // check required fields, if valid call service to update user
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    //if model is valid update user and return response
                     //hash password and update model
                     string password = BCrypt.Net.BCrypt.HashPassword(user.Password);
                     user.Password = password;
-
+                    //update user and return response
                     _UserRepository.Update(user);
                     return Ok("Success");
                 }
@@ -78,6 +73,7 @@ namespace Dot.Net.WebApi.Controllers
                     return BadRequest("Invalid");
                 }
             }
+            return BadRequest("Invalid");
         }
 
 

@@ -36,7 +36,6 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpPost("/rating/add")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult AddRating([FromBody] Rating rating)
         {
             // check data valid and save to db, after saving returns "Success"
@@ -63,13 +62,14 @@ namespace Dot.Net.WebApi.Controllers
                 {
                     //if model is valid update rating and return response
                     _ratingRepository.Update(rating);
+                    return Ok("Success");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     return BadRequest("Invalid");
                 }
             }
-            return Ok("Success");
+            return BadRequest("Invalid");
         }
 
         [HttpDelete("/rating/{id}")]

@@ -36,7 +36,6 @@ namespace Dot.Net.WebApi.Controllers
         }
 
         [HttpPost("/ruleName/add")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult AddRuleName([FromBody] RuleName ruleName)
         {
             // check data valid and save to db, after saving returns "Success"
@@ -62,13 +61,14 @@ namespace Dot.Net.WebApi.Controllers
                 {
                     //if model is valid update rulename and return response
                     _rulenameRepository.Update(ruleName);
+                    return Ok("Success");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     return BadRequest("Invalid");
                 }
             }
-            return Ok("Success");
+            return BadRequest("Invalid");
         }
 
         [HttpDelete("/ruleName/{id}")]

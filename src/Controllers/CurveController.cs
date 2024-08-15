@@ -64,13 +64,14 @@ namespace Dot.Net.WebApi.Controllers
                 {
                     //if model is valid update curve and return response
                     _curvePointRepository.Update(curvePoint);
+                    return Ok("Success");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     return BadRequest("Invalid");
                 }
             }
-            return Ok("Success");
+            return BadRequest("Invalid");
         }
 
         [HttpDelete("/curvepoint/{id}")]
