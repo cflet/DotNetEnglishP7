@@ -17,11 +17,13 @@ namespace Dot.Net.WebApi.Repositories
             DbContext = dbContext;
         }
 
+        //returns first found bidlist matching id
         public BidList FindByBidListId(int bidlistid)
         {
-            return DbContext.BidLists.FirstOrDefault(BidList => BidList.BidListId == bidlistid);
+            return DbContext.BidLists.FirstOrDefault(BidList => BidList.Id == bidlistid);
         }
 
+        //returns array of all bidlist
         public BidList[] FindAll()
         {
             return DbContext.BidLists.ToArray();

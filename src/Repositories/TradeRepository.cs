@@ -17,11 +17,13 @@ namespace Dot.Net.WebApi.Repositories
             DbContext = dbContext;
         }
 
+        //returns first found trade matching id
         public Trade FindByTradeId(int tradeId)
         {
-            return DbContext.Trades.FirstOrDefault(Trade => Trade.TradeId == tradeId);
+            return DbContext.Trades.FirstOrDefault(Trade => Trade.Id == tradeId);
         }
 
+        //returns array of all trades
         public Trade[] FindAll()
         {
             return DbContext.Trades.ToArray();

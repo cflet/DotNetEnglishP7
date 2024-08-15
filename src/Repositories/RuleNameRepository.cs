@@ -17,11 +17,13 @@ namespace Dot.Net.WebApi.Repositories
             DbContext = dbContext;
         }
 
+        //returns first found rulename matching id
         public RuleName FindByRuleNameId(int ruleNameId)
         {
             return DbContext.RuleNames.FirstOrDefault(RuleName => RuleName.Id == ruleNameId);
         }
 
+        //returns array of all rulenames
         public RuleName[] FindAll()
         {
             return DbContext.RuleNames.ToArray();

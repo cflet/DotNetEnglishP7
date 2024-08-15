@@ -15,13 +15,15 @@ namespace Dot.Net.WebApi.Repositories
         {
             DbContext = dbContext;
         }
-
+        
+        //returns first found user matching userName
         public User FindByUserName(string userName)
         {
             return DbContext.Users.Where(user => user.UserName == userName)
                                   .FirstOrDefault();
         }
 
+        //returns array of all users
         public User[] FindAll()
         {
             return DbContext.Users.ToArray();

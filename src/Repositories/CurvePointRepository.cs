@@ -17,11 +17,13 @@ namespace Dot.Net.WebApi.Repositories
             DbContext = dbContext;
         }
 
+        //returns first found curvepoint matching id
         public CurvePoint FindByCurvePointId(int curvepointid)
         {
             return DbContext.CurvePoints.FirstOrDefault(CurvePoint => CurvePoint.Id == curvepointid);
         }
 
+        //returns array of all curvepoints
         public CurvePoint[] FindAll()
         {
             return DbContext.CurvePoints.ToArray();

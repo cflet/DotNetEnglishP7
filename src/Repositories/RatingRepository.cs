@@ -17,11 +17,13 @@ namespace Dot.Net.WebApi.Repositories
             DbContext = dbContext;
         }
 
+        //returns first found rating matching id
         public Rating FindByRatingId(int ratingid)
         {
-            return DbContext.Ratings.FirstOrDefault(Rating => Rating.RatingId == ratingid);
+            return DbContext.Ratings.FirstOrDefault(Rating => Rating.Id == ratingid);
         }
 
+        //returns array of all Ratings
         public Rating[] FindAll()
         {
             return DbContext.Ratings.ToArray();
