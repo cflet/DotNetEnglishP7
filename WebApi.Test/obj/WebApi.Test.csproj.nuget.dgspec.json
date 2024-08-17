@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "Y:\\OC Projects\\P7_Cheron\\DotNetEnglishP7\\WebApi.Test\\WebApi.Test.csproj": {}
+    "Y:\\OC Projects\\P7_Cheron\\P7_01_codebase\\WebApi.Test\\WebApi.Test.csproj": {}
   },
   "projects": {
-    "Y:\\OC Projects\\P7_Cheron\\DotNetEnglishP7\\src\\WebApi.csproj": {
+    "Y:\\OC Projects\\P7_Cheron\\P7_01_codebase\\src\\WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Y:\\OC Projects\\P7_Cheron\\DotNetEnglishP7\\src\\WebApi.csproj",
+        "projectUniqueName": "Y:\\OC Projects\\P7_Cheron\\P7_01_codebase\\src\\WebApi.csproj",
         "projectName": "WebApi",
-        "projectPath": "Y:\\OC Projects\\P7_Cheron\\DotNetEnglishP7\\src\\WebApi.csproj",
+        "projectPath": "Y:\\OC Projects\\P7_Cheron\\P7_01_codebase\\src\\WebApi.csproj",
         "packagesPath": "C:\\Users\\cheronfletcher\\.nuget\\packages\\",
-        "outputPath": "Y:\\OC Projects\\P7_Cheron\\DotNetEnglishP7\\src\\obj\\",
+        "outputPath": "Y:\\OC Projects\\P7_Cheron\\P7_01_codebase\\src\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -130,14 +130,14 @@
         }
       }
     },
-    "Y:\\OC Projects\\P7_Cheron\\DotNetEnglishP7\\WebApi.Test\\WebApi.Test.csproj": {
+    "Y:\\OC Projects\\P7_Cheron\\P7_01_codebase\\WebApi.Test\\WebApi.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Y:\\OC Projects\\P7_Cheron\\DotNetEnglishP7\\WebApi.Test\\WebApi.Test.csproj",
+        "projectUniqueName": "Y:\\OC Projects\\P7_Cheron\\P7_01_codebase\\WebApi.Test\\WebApi.Test.csproj",
         "projectName": "WebApi.Test",
-        "projectPath": "Y:\\OC Projects\\P7_Cheron\\DotNetEnglishP7\\WebApi.Test\\WebApi.Test.csproj",
+        "projectPath": "Y:\\OC Projects\\P7_Cheron\\P7_01_codebase\\WebApi.Test\\WebApi.Test.csproj",
         "packagesPath": "C:\\Users\\cheronfletcher\\.nuget\\packages\\",
-        "outputPath": "Y:\\OC Projects\\P7_Cheron\\DotNetEnglishP7\\WebApi.Test\\obj\\",
+        "outputPath": "Y:\\OC Projects\\P7_Cheron\\P7_01_codebase\\WebApi.Test\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -157,8 +157,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "Y:\\OC Projects\\P7_Cheron\\DotNetEnglishP7\\src\\WebApi.csproj": {
-                "projectPath": "Y:\\OC Projects\\P7_Cheron\\DotNetEnglishP7\\src\\WebApi.csproj"
+              "Y:\\OC Projects\\P7_Cheron\\P7_01_codebase\\src\\WebApi.csproj": {
+                "projectPath": "Y:\\OC Projects\\P7_Cheron\\P7_01_codebase\\src\\WebApi.csproj"
               }
             }
           }

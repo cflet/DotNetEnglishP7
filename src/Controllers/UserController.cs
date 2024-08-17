@@ -38,7 +38,7 @@ namespace Dot.Net.WebApi.Controllers
             // check data valid and save to db, after saving returns "Success"
             if (ModelState.IsValid)
             {
-                //if model is valid add bid and return response
+                //if model is valid add user and return response
                 //hash password and update model
                 string password = BCrypt.Net.BCrypt.HashPassword(user.Password);
                 user.Password = password;

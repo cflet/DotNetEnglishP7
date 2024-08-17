@@ -49,11 +49,6 @@ namespace Dot.Net.WebApi
             services.AddDbContext<LocalDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("LocalDbContext")));
 
-
-            //services.AddIdentity<IdentityUser, IdentityRole>()
-        //.AddEntityFrameworkStores<LocalDbContext>()
-        //.AddDefaultTokenProviders();
-
         }  
 
 
